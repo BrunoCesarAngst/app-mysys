@@ -22,9 +22,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      
+
       {/* criar um componente para o layout da página */}
-      <body className={inter.className}>{children}</body>
+      {/* <body className={inter.className}>{children}</body> */}
+      <body>{children}</body>
     </html>
-  )
+  );
 }
