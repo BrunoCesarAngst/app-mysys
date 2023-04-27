@@ -140,19 +140,19 @@ export default function Home() {
     <>
       <div className="flex flex-col h-screen">
         {/* criar um header para o site */}
-        <header className="flex justify-between items-center p-3 bg-gray-100">
+        <header className="flex justify-between items-center p-3 bg-gray-200">
           <h1 className="text-2xl font-bold">mySys</h1>
           <div className="flex">
-            <button className="p-2 bg-gray-200 rounded-lg">Inbox</button>
-            <button className="p-2 bg-gray-200 rounded-lg">Hoje</button>
-            <button className="p-2 bg-gray-200 rounded-lg">
+            <button className="p-2 bg-gray-100 rounded-lg">Inbox</button>
+            <button className="p-2 bg-gray-100 rounded-lg">Hoje</button>
+            <button className="p-2 bg-gray-100 rounded-lg">
               Próximos 7 dias
             </button>
           </div>
         </header>
         {/* criar um container para o conteúdo da página */}
         <main className="flex h-screen">
-          <div className="p-3 w-1/3 bg-gray-100">
+          <div className="p-3 w-2/12 bg-gray-300">
             {/* criar um componente para a lista de links para outras páginas do site */}
             <div className="p-1">
               <h1 className="text-2xl font-bold">Listas</h1>
@@ -207,17 +207,36 @@ export default function Home() {
           )}
           {/* criar um modal que aparece quando o usuário clica no botão de remover uma tarefa */}
           {/* <button onClick={() => setShowModal(true)}>Abrir</button> */}
-          <div className="p-3 w-2/3 bg-gray-200">
+          <div className="p-3 w-10/12 bg-blue-100">
             <h1 className="text-2xl font-bold">Inbox</h1>
-            <ul>
+            <ul className="ml-2">
               {/* criar um componente para cada item da lista de tarefas */}
               {tasks.map((task, index) => (
-                <li key={task.id}>
+                <li className="flex items-center content-center" key={task.id}>
                   {/* criar um componente para o input de edição */}
+                  {
+                    // se a tarefa estiver completa, mostrar o botão de marcar como incompleta, senão mostrar o botão de marcar como completa
+                    task.completed ? (
+                      <button
+                        className="mr-2"
+                        onClick={() => incompleteTask(task.id)}
+                      >
+                        ✅
+                      </button>
+                    ) : (
+                      <button
+                        className="mr-2 text-3xl"
+                        onClick={() => completeTask(task.id)}
+                      >
+                        ◻︎
+                      </button>
+                    )
+                  }
                   {
                     // se o index da tarefa for igual ao index da tarefa que está sendo editada, mostrar o input de edição
                     editIndex === index ? (
                       <input
+                        className="rounded-md border-2 p-2 self-center border-amber-200"
                         type="text"
                         value={editValue}
                         onChange={e => setEditValue(e.target.value)}
@@ -236,26 +255,23 @@ export default function Home() {
                       </span>
                     )
                   }
-                  <button onClick={() => removeTask(task.id)}>🗑️</button>
+                  <button className="ml-2" onClick={() => removeTask(task.id)}>
+                    🗑️
+                  </button>
                   {/* criar um componente para o botão de salvar a edição */}
                   {
                     // se o index da tarefa for igual ao index da tarefa que está sendo editada, mostrar o botão de salvar a edição
                     editIndex === index ? (
-                      <button onClick={handleEditSaveClick}>💾</button>
+                      <button className="ml-2" onClick={handleEditSaveClick}>
+                        💾
+                      </button>
                     ) : (
-                      <button onClick={() => handleItemClicked(index)}>
+                      <button
+                        className="ml-2"
+                        onClick={() => handleItemClicked(index)}
+                      >
                         ✏️
                       </button>
-                    )
-                  }
-                  {
-                    // se a tarefa estiver completa, mostrar o botão de marcar como incompleta, senão mostrar o botão de marcar como completa
-                    task.completed ? (
-                      <button onClick={() => incompleteTask(task.id)}>
-                        ✅
-                      </button>
-                    ) : (
-                      <button onClick={() => completeTask(task.id)}>◻︎</button>
                     )
                   }
                 </li>
@@ -264,11 +280,11 @@ export default function Home() {
           </div>
         </main>
         {/* criar um footer para o site */}
-        <div className="flex justify-center items-center p-3 bg-gray-100">
+        <div className="flex justify-center items-center p-3 bg-gray-200">
           {/* <h1 className="flex text-xl font-bold">Adicionar Coisas</h1> */}
           {/* criar um componente para o input de adicionar tarefas */}
           <input
-            className="w-full h-16 px-6"
+            className="w-5/12 h-10 px-4"
             type="text"
             onChange={e => setInputValue(e.target.value)}
             placeholder="Pressione enter para adicionar alguma coisa"
