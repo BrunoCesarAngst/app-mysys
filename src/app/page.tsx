@@ -80,19 +80,21 @@ export default function Home() {
   // criar uma função que antes de atualizar o valor do input de edição abre um alarta para confirmar a ação
   const handleEditSaveClick = () => {
     if (editIndex !== null) {
-      if (window.confirm('Deseja salvar as alterações?')) {
-        setTasks(prevTasks => {
-          const newTasks = [...prevTasks];
-          newTasks[editIndex] = {
-            ...newTasks[editIndex],
-            text: editValue,
-            updatedAt: new Date().toLocaleTimeString(),
-          };
-          return newTasks;
-        }),
-          setEditIndex(null),
-          setEditValue('');
-      }
+      // chamar o modal
+      setShowModal(true);
+      // if (window.confirm('Deseja salvar as alterações?')) {
+      setTasks(prevTasks => {
+        const newTasks = [...prevTasks];
+        newTasks[editIndex] = {
+          ...newTasks[editIndex],
+          text: editValue,
+          updatedAt: new Date().toLocaleTimeString(),
+        };
+        return newTasks;
+      }),
+        setEditIndex(null),
+        setEditValue('');
+      // }
     }
   };
 
@@ -106,7 +108,11 @@ export default function Home() {
     setTasks(
       tasks.map(task => {
         if (task.id === id) {
-          return { ...task, completed: true, updatedAt: new Date().toLocaleTimeString() };
+          return {
+            ...task,
+            completed: true,
+            updatedAt: new Date().toLocaleTimeString(),
+          };
         }
         return task;
       })
@@ -118,7 +124,11 @@ export default function Home() {
     setTasks(
       tasks.map(task => {
         if (task.id === id) {
-          return { ...task, completed: false, updatedAt: new Date().toLocaleTimeString() };
+          return {
+            ...task,
+            completed: false,
+            updatedAt: new Date().toLocaleTimeString(),
+          };
         }
         return task;
       })
@@ -127,74 +137,145 @@ export default function Home() {
 
   // retornar o componente com o input de adicionar tarefas e a lista de tarefas com os botões de remover, editar, marcar como completa ou incompleta
   return (
-    <div className="flex h-screen">
-      <div className="p-3 w-1/3 bg-gray-100">
-        <h1 className="text-2xl font-bold">Adicionar Coisas</h1>
-        <input
-          className="w-full h-16 px-6"
-          type="text"
-          onChange={e => setInputValue(e.target.value)}
-          placeholder="Pressione enter para adicionar alguma coisa"
-          onKeyDown={handleInputKeyPress}
-        />
-        <div className="p-1">
-          <h1 className="text-2xl font-bold">Listas</h1>
-          <ul className="p-1">
-            <li className="flex justify-between">
-              <a href="/" className="">
-                Inbox
-              </a>
-              <span className="">{tasks.length}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      {showModal && (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-3 rounded">
-            <h1 className="text-2xl font-bold">Modal</h1>
-            <p>Conteúdo do modal</p>
-            <button onClick={() => setShowModal(false)}>Fechar</button>
+    <>
+      <div className="flex flex-col h-screen">
+        {/* criar um header para o site */}
+        <header className="flex justify-between items-center p-3 bg-gray-100">
+          <h1 className="text-2xl font-bold">mySys</h1>
+          <div className="flex">
+            <button className="p-2 bg-gray-200 rounded-lg">Inbox</button>
+            <button className="p-2 bg-gray-200 rounded-lg">Hoje</button>
+            <button className="p-2 bg-gray-200 rounded-lg">
+              Próximos 7 dias
+            </button>
           </div>
+        </header>
+        {/* criar um container para o conteúdo da página */}
+        <main className="flex h-screen">
+          <div className="p-3 w-1/3 bg-gray-100">
+            {/* criar um componente para a lista de links para outras páginas do site */}
+            <div className="p-1">
+              <h1 className="text-2xl font-bold">Listas</h1>
+              <ul className="p-1">
+                <li className="flex justify-between">
+                  <a href="/" className="">
+                    Inbox
+                  </a>
+                  <span className="">{tasks.length}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {/* criar um componente para o modal  */}
+          {showModal && (
+            <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
+              <div className="bg-white p-3 rounded">
+                <h1 className="text-2xl font-bold">Modal</h1>
+                <p>Conteúdo do modal</p>
+                <div className="flex justify-between">
+                  <button
+                    className="w-1/3 p-4"
+                    onClick={() => {
+                      alert('esquerdo');
+                      setShowModal(false);
+                    }}
+                  >
+                    esquerdo
+                  </button>
+                  <button
+                    className="w-1/3 p-4"
+                    onClick={() => {
+                      alert('centro');
+                      setShowModal(false);
+                    }}
+                  >
+                    centro
+                  </button>
+                  <button
+                    className="w-1/3 p-4"
+                    onClick={() => {
+                      alert('direita');
+                      setShowModal(false);
+                    }}
+                  >
+                    direita
+                  </button>
+                </div>
+                <button onClick={() => setShowModal(false)}>Fechar</button>
+              </div>
+            </div>
+          )}
+          {/* criar um modal que aparece quando o usuário clica no botão de remover uma tarefa */}
+          {/* <button onClick={() => setShowModal(true)}>Abrir</button> */}
+          <div className="p-3 w-2/3 bg-gray-200">
+            <h1 className="text-2xl font-bold">Inbox</h1>
+            <ul>
+              {/* criar um componente para cada item da lista de tarefas */}
+              {tasks.map((task, index) => (
+                <li key={task.id}>
+                  {/* criar um componente para o input de edição */}
+                  {
+                    // se o index da tarefa for igual ao index da tarefa que está sendo editada, mostrar o input de edição
+                    editIndex === index ? (
+                      <input
+                        type="text"
+                        value={editValue}
+                        onChange={e => setEditValue(e.target.value)}
+                      />
+                    ) : (
+                      // criar um componente para o texto da tarefa
+                      <span
+                        // adicionar uma classe CSS para riscar o texto da tarefa quando ela estiver completa
+                        className={`cursor-pointer ${
+                          task.completed ? 'line-through' : ''
+                        }`}
+                        // handleItemClicked é uma função que recebe o index da tarefa e chama a função setEditIndex com o index da tarefa
+                        onClick={() => handleItemClicked(index)}
+                      >
+                        {task.text} - {task.createdAt} - {task.updatedAt}
+                      </span>
+                    )
+                  }
+                  <button onClick={() => removeTask(task.id)}>🗑️</button>
+                  {/* criar um componente para o botão de salvar a edição */}
+                  {
+                    // se o index da tarefa for igual ao index da tarefa que está sendo editada, mostrar o botão de salvar a edição
+                    editIndex === index ? (
+                      <button onClick={handleEditSaveClick}>💾</button>
+                    ) : (
+                      <button onClick={() => handleItemClicked(index)}>
+                        ✏️
+                      </button>
+                    )
+                  }
+                  {
+                    // se a tarefa estiver completa, mostrar o botão de marcar como incompleta, senão mostrar o botão de marcar como completa
+                    task.completed ? (
+                      <button onClick={() => incompleteTask(task.id)}>
+                        ✅
+                      </button>
+                    ) : (
+                      <button onClick={() => completeTask(task.id)}>◻︎</button>
+                    )
+                  }
+                </li>
+              ))}
+            </ul>
+          </div>
+        </main>
+        {/* criar um footer para o site */}
+        <div className="flex justify-center items-center p-3 bg-gray-100">
+          {/* <h1 className="flex text-xl font-bold">Adicionar Coisas</h1> */}
+          {/* criar um componente para o input de adicionar tarefas */}
+          <input
+            className="w-full h-16 px-6"
+            type="text"
+            onChange={e => setInputValue(e.target.value)}
+            placeholder="Pressione enter para adicionar alguma coisa"
+            onKeyDown={handleInputKeyPress}
+          />
         </div>
-      )}
-      <button onClick={() => setShowModal(true)}>Abrir</button>
-      <div className="p-3 w-2/3 bg-gray-200">
-        <h1 className="text-2xl font-bold">Inbox</h1>
-        <ul>
-          {tasks.map((task, index) => (
-            <li key={task.id}>
-              {editIndex === index ? (
-                <input
-                  type="text"
-                  value={editValue}
-                  onChange={e => setEditValue(e.target.value)}
-                />
-              ) : (
-                <span
-                  className={`cursor-pointer ${
-                    task.completed ? 'line-through' : ''
-                  }`}
-                  onClick={() => handleItemClicked(index)}
-                >
-                  {task.text} - {task.createdAt} - {task.updatedAt}
-                </span>
-              )}
-              <button onClick={() => removeTask(task.id)}>🗑️</button>
-              {editIndex === index ? (
-                <button onClick={handleEditSaveClick}>💾</button>
-              ) : (
-                <button onClick={() => handleItemClicked(index)}>✏️</button>
-              )}
-              {task.completed ? (
-                <button onClick={() => incompleteTask(task.id)}>✅</button>
-              ) : (
-                <button onClick={() => completeTask(task.id)}>◻︎</button>
-              )}
-            </li>
-          ))}
-        </ul>
       </div>
-    </div>
+    </>
   );
 }
