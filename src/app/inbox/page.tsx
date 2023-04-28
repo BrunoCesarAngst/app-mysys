@@ -10,26 +10,10 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import { lists } from '@/contants/lists';
+import { Task } from '@/types/task';
 import Link from 'next/link';
-
-// criar um tipo Task com os campos id, text, completed, data de criação e data de atualização
-type Task = {
-  id: number;
-  text: string;
-  createdAt: string;
-  updatedAt: string;
-  discerned: boolean;
-  fastAction?: boolean;
-  incubate?: boolean;
-  reference?: boolean;
-  trash?: boolean;
-  delegated?: boolean;
-  actionDate?: boolean;
-  context?: boolean;
-  project?: boolean;
-  completed?: boolean;
-};
+import React, { useState } from 'react';
 
 export default function Home() {
   // criar um estado para armazenar as tarefas da lista que respeitem o tipo Task
@@ -146,18 +130,12 @@ export default function Home() {
           <div className="p-1">
             <h1 className="text-2xl font-bold">Listas</h1>
             <ul className="p-1">
-              <li className="flex justify-between">
-                <Link href={`/mysys`}>
-                  Inbox
-                </Link>
-                <span className="">{tasks.length}</span>
-              </li>
-              <li className="flex justify-between">
-                <Link href={`/mysys/fastaction`}>
-                  Fast Action
-                </Link>
-                <span className="">{tasks.length}</span>
-              </li>
+              {lists.map(list => (
+                <li key={list.number} className="flex justify-between">
+                  <Link href={`/${list.browsing}`}>{list.name}</Link>
+                  <span className="">{tasks.length}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
