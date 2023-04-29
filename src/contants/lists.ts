@@ -1,11 +1,14 @@
-// criando o tipo de lista 2
-type List = {
-  browsing: string;
-  number: number;
-  id: string;
-  name: string;
-  icon: string;
-};
+import { z } from 'zod';
+
+export const ListSchema = z.object({
+  browsing: z.string(),
+  number: z.number(),
+  id: z.string(),
+  name: z.string(),
+  icon: z.string(),
+});
+
+export type List = z.infer<typeof ListSchema>;
 
 // lista2 um array de objetos, cada objeto tem um browsing, number, id, name e icon.
 export const lists: List[] = [
@@ -17,7 +20,7 @@ export const lists: List[] = [
     icon: 'inbox',
   },
   {
-    browsing: 'inbox/fastaction',
+    browsing: 'fastaction',
     number: 2,
     id: 'fastaction',
     name: 'Fast Action',

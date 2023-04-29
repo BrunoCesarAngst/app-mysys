@@ -1,33 +1,41 @@
-// um array de sceneFastActionsIncomplete com 3 objetos cenas de ações rápidas incompletas
-export const sceneFastActionsIncomplete = [
+import { TaskSchema } from '@/types/task';
+import { createId } from '@paralleldrive/cuid2';
+import { z } from 'zod';
+
+// sceneFastActionsIncomplete um array de objetos
+const aSceneFastActionsIncomplete = [
   {
-    id: 1,
+    id: createId(),
     text: 'Action 1',
-    createdAt: '2023-05-15', // ano-mes-dia
-    updatedAt: '2023-05-15',
+    createdAt: new Date('2023-05-15T00:00:00.000Z'),
+    updatedAt: new Date('2023-05-15T00:00:00.000Z'),
+    deletedAt: null,
     discerned: true,
     completed: false,
-    deleted: false,
     fastAction: true,
   },
   {
-    id: 2,
+    id: createId(),
     text: 'Action 2',
-    createdAt: '2023-05-15',
-    updatedAt: '2023-05-15',
+    createdAt: new Date('2023-05-15T00:00:00.000Z'),
+    updatedAt: new Date('2023-05-15T00:00:00.000Z'),
+    deletedAt: null,
     discerned: true,
     completed: false,
-    deleted: false,
     fastAction: true,
   },
   {
-    id: 3,
+    id: createId(),
     text: 'Action 3',
-    createdAt: '2023-05-15',
-    updatedAt: '2023-05-15',
+    createdAt: new Date('2023-05-15T00:00:00.000Z'),
+    updatedAt: new Date('2023-05-15T00:00:00.000Z'),
+    deletedAt: null,
     discerned: true,
     completed: false,
-    deleted: false,
     fastAction: true,
   },
 ];
+
+export const sceneFastActionsIncomplete = z
+  .array(TaskSchema)
+  .parse(aSceneFastActionsIncomplete);
