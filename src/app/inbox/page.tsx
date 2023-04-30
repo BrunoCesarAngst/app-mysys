@@ -177,7 +177,7 @@ export default function Home() {
         )}
         {/* criar um modal que aparece quando o usuário clica no botão de remover uma tarefa */}
         <div className="w-5/12">
-          <div className="rounded-md border border-sky-400 mt-3 h-96 pb-20">
+          <div className="rounded-md border border-sky-400 mt-3 h-96 pb-20 shadow-lg shadow-zinc-800">
             <h1 className="text-2xl font-bold flex justify-center mt-3">
               Inbox
             </h1>

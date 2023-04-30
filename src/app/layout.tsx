@@ -25,7 +25,7 @@ export default function RootLayout({
 
       {/* criar um componente para o layout da página */}
       {/* <body className={inter.className}>{children}</body> */}
-      <body>{children}</body>
+      <body className="h-full">{children}</body>
     </html>
   );
 }
