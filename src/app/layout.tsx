@@ -25,7 +25,7 @@ export default function RootLayout({
 
       {/* criar um componente para o layout da página */}
       {/* <body className={inter.className}>{children}</body> */}
-      <body className="h-full">{children}</body>
+      <body className="flex flex-col min-h-screen">{children}</body>
     </html>
   );
 }
