@@ -121,7 +121,7 @@ export default function Teste1() {
               Campos do formulário aqui
               <div>
                 <label
-                  for="title"
+                  htmlFor="title"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Título
