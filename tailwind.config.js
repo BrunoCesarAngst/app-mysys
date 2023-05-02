@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: 'jit',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -7,6 +8,7 @@ module.exports = {
   ],
   theme: {
     screens: {
+      mobilexs: '280px',
       mobile: '320px',
       sm: '640px',
       md: '768px',
@@ -23,5 +25,10 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/container-queries'),
+  ],
 };

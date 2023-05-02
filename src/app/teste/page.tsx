@@ -24,7 +24,7 @@ export default function Teste() {
           header
         </header>
         <main className="flex-1 grid grid-cols-1 md:grid-cols-none w-full mt-11 px-4 py-2 overflow-y-auto">
-          <div className="space-y-6 mt-6">
+          <div className="space-y-6 mt-6 mb-10">
             <div className="">
               {tasks.map((task, index) => (
                 <div key={index} className="pl-6 pr-3">
@@ -36,10 +36,11 @@ export default function Teste() {
             <p>fim</p>
           </div>
         </main>
-        <footer className="fixed bottom-0 w-full px-4 py-2 h-auto">
-          <div className="flex w-auto justify-between items-center">
+        <footer className="fixed bottom-0 w-full px-4 py-2 h-auto bg-gray-700">
+          <div className="relative flex w-auto justify-between items-center">
             <input
-              className="form-input w-full resize-none overflow-hidden outline-none h-[5rem] md:h-[10rem] transition-all duration-300 text-base sm:text-lg md:text-xl"
+              type="text"
+              className="block form-input w-full border-none border-0 focus:ring-0 outline-none mobilexs:h-[2rem] mobile:h-[3rem]  md:h-[4rem] h-[6rem] transition-all duration-300 mobilexs:text-xs mobile:text-sm md:text-base text-lg"
               maxLength={100}
               placeholder="Descreva algo na linha..." // type="text"
               name="task"
@@ -48,7 +49,11 @@ export default function Teste() {
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
             />
-            <span className="mt-16">{currentTask.length}/100</span>
+            <div className="absolute -inset-y-1 left-0 pl-3">
+              <span className="mt-16 mobilexs:text-xs mobile:text-sm md:text-base text-lg">
+                {currentTask.length}/100
+              </span>
+            </div>
           </div>
         </footer>
       </div>
