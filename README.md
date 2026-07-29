@@ -1,64 +1,112 @@
+# MySys
 
+Laboratório de sistema pessoal que combina princípios de **GTD**, **ZTD** e **PARA** em uma aplicação web.
 
-# Projeto de Mistura de GTD, ZTD, e PARA com Next.js e Typescript
+O projeto investiga como transformar métodos de produtividade — normalmente mantidos em listas, pastas e ferramentas desconectadas — em um modelo de dados coerente para projetos, áreas, recursos, arquivos e próximas ações.
 
-Este projeto tem como objetivo implementar uma mistura de GTD (Getting Things Done), ZTD (Zen to Done) e PARA (Projects, Areas, Resources, and Archives) utilizando Next.js e Typescript.
+## Questão de produto
 
-## Funcionalidades
+Um sistema pessoal precisa organizar informação sem aumentar o esforço necessário para mantê-la.
 
-- [ ] Implementação de cadastro de tarefas
-- [ ] Implementação de lista de tarefas por projeto
-- [ ] Implementação de lista de tarefas por área
-- [ ] Implementação de lista de tarefas por contexto
-- [ ] Implementação de lista de tarefas por data de conclusão
+MySys explora três necessidades:
 
-## Tecnologias Utilizadas
+1. capturar rapidamente o que exige atenção;
+2. dar contexto e destino ao que foi capturado;
+3. permitir revisão sem esconder compromissos em estruturas complexas.
 
-- Next.js
-- Typescript
-- React
+## Modelo conceitual
 
-## Como rodar o projeto
-
-1. Clone o repositório:
-
+```mermaid
+flowchart LR
+    C[Captura] --> E[Esclarecer]
+    E --> O[Organizar]
+    O --> P[Projetos]
+    O --> A[Áreas]
+    O --> R[Recursos]
+    O --> Q[Arquivo]
+    P --> X[Próximas ações]
+    A --> X
+    X --> V[Revisar e executar]
 ```
+
+## Stack
+
+**Aplicação**  
+`Next.js 13` · `React 18` · `TypeScript`
+
+**Interface e estado**  
+`Tailwind CSS` · `Headless UI` · `Heroicons` · `Zustand` · `Immer` · `React DnD`
+
+**Dados e validação**  
+`Prisma` · `Vercel Postgres` · `Zod` · `CUID2`
+
+**Documentação**  
+`Mermaid` · geração de diagrama de entidades pelo Prisma
+
+## Capacidades planejadas
+
+- [ ] captura de tarefas e ideias;
+- [ ] organização por projeto;
+- [ ] organização por área de responsabilidade;
+- [ ] associação a contextos;
+- [ ] acompanhamento por data;
+- [ ] revisão de compromissos;
+- [ ] movimentação visual entre estados;
+- [ ] arquivo de itens concluídos ou inativos.
+
+## Organização arquitetural
+
+```mermaid
+flowchart LR
+    U[Usuário] --> N[Next.js]
+    N --> S[Estado da interface]
+    N --> Z[Validação Zod]
+    N --> P[Prisma]
+    P --> D[(PostgreSQL)]
+```
+
+O projeto mantém separadas três preocupações:
+
+- **método** — as regras de organização pessoal;
+- **interação** — como o usuário captura, move e revisa itens;
+- **persistência** — como relações e estados são armazenados.
+
+## Execução local
+
+```bash
 git clone https://github.com/BrunoCesarAngst/app-mysys.git
-```
-
-2. Acesse a pasta do projeto:
-
-```
 cd app-mysys
-```
-
-3. Instale as dependências:
-
-```
 npm install
-```
-
-4. Renomeie o arquivo `.env.example` para `.env` e preencha as variáveis de ambiente com as informações do seu banco de dados.
-
-5. Rode o projeto:
-
-```
+cp .env.example .env
+npm run generate
 npm run dev
 ```
 
-6. Acesse `http://localhost:3000` no seu navegador para visualizar o projeto.
+Aplicação: `http://localhost:3000`
 
-## Contribuições
+## Banco de dados
 
-Contribuições são sempre bem-vindas! Se você quiser contribuir com o projeto, siga os seguintes passos:
+```bash
+npm run migration
+npm run prisma
+npm run studio
+```
 
-1. Fork o repositório.
-2. Clone o repositório forkado para a sua máquina.
-3. Crie uma nova branch com as suas alterações: `git checkout -b minha-branch`.
-4. Faça as alterações desejadas e faça o commit delas: `git commit -am 'Minha contribuição'`.
-5. Push para a branch: `git push origin minha-branch`.
-6. Crie um Pull Request com as suas alterações.
+## Estado do projeto
 
-## Licença
+**Conceito em desenvolvimento.**
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo `LICENSE` para mais detalhes.
+O repositório registra uma exploração arquitetural e não deve ser interpretado como produto concluído. As funcionalidades planejadas permanecem explicitamente marcadas para que o estágio real do trabalho não seja confundido com uma entrega pronta.
+
+## O que este projeto demonstra
+
+- transformação de métodos abstratos em entidades e relações;
+- preocupação com fricção de uso e revisão;
+- modelagem de estado para interação visual;
+- persistência relacional com schema versionado;
+- documentação visual de domínio;
+- transparência sobre escopo concluído e planejado.
+
+---
+
+[Perfil de Bruno César Angst](https://github.com/BrunoCesarAngst) · [Site](https://brunoangst.com.br/)
